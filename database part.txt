@@ -1,0 +1,56 @@
+
+Setting environment for using XAMPP for Windows.
+ludvig@LUDVIG--KENTUCK c:\xampp
+# mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.25-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database Short_course;
+Query OK, 1 row affected (0.053 sec)
+
+MariaDB [(none)]> use short_course;
+Database changed
+MariaDB [short_course]> create table Trainees(Trainee int primary key auto_increment, Firstname varchar(77), Lastname varchar(77), Gender varchar(77), Telephone varchar(77));
+Query OK, 0 rows affected (0.236 sec)
+
+MariaDB [short_course]>d
+Query OK, 0 rows affected (0.305 sec)
+
+MariaDB [short_course]> create table marks(Traineeid int, foreign key(Traineeid) references Trainees(Traineeid), Modulecode int, foreign key(Modulecode) references Module(Modulecode), Assessmentmarks varchar(77), exammarks varchar(77));
+ERROR 1005 (HY000): Can't create table `short_course`.`marks` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [short_course]> create table marks(Traineeid int(10), foreign key(Traineeid) references Trainees(Traineeid), Modulecode int(10), foreign key(Modulecode) references Module(Modulecode), Assessmentmarks varchar(77), exammarks varchar(77));
+ERROR 1005 (HY000): Can't create table `short_course`.`marks` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [short_course]> drop table trainees:
+    -> drop table trainees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':
+drop table trainees' at line 1
+MariaDB [short_course]> drop table trainees;
+Query OK, 0 rows affected (0.319 sec)
+
+MariaDB [short_course]> drop table module;
+Query OK, 0 rows affected (0.212 sec)
+
+MariaDB [short_course]> create table Trainees(Trainee int(10) primary key auto_increment, Firstname varchar(77), Lastname varchar(77), Gender varchar(77), Telephone varchar(77));
+Query OK, 0 rows affected (0.218 sec)
+
+MariaDB [short_course]> create table Module(Modulecode int(10) primary key auto_increment, Modulename varchar(77));
+Query OK, 0 rows affected (0.200 sec)
+
+MariaDB [short_course]> create table marks(Traineeid int(10), foreign key(Traineeid) references Trainees(Traineeid), Modulecode int(10), foreign key(Modulecode) references Module(Modulecode), Assessmentmarks varchar(77), exammarks varchar(77));
+ERROR 1005 (HY000): Can't create table `short_course`.`marks` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [short_course]> CREATE TABLE marks (
+    ->     Traineeid INT(10),
+    ->     Modulecode INT(10),
+    ->     Assessmentmarks VARCHAR(77),
+    ->     exammarks VARCHAR(77),
+    ->     FOREIGN KEY (Traineeid) REFERENCES Trainees(Trainee),
+    ->     FOREIGN KEY (Modulecode) REFERENCES Module(Modulecode)
+    -> );
+Query OK, 0 rows affected (0.284 sec)
+
+MariaDB [short_course]>
